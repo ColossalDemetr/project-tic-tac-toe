@@ -30,3 +30,9 @@ const gameBoard = (() => {
     return { getBoard, placeMarker, reset }
 
 })();
+
+function createPlayer (name, marker) {
+    let player = { name, marker }
+    
+    return player;
+};
