@@ -98,8 +98,23 @@ const displayController = (() => {
 
     };
 
-    return { render };
+    function addClickListeners() {
 
 
+        document.querySelectorAll(".cell").forEach((cell) => {
+            cell.addEventListener("click", (e) => {
+
+                const index = e.target.id.split("-")[1];
+
+                gameController.makeATurn(index);
+
+                
+            });
+        });
+    };
+    
+    return { render , addClickListeners};
     
 })();
+
+displayController.addClickListeners();
