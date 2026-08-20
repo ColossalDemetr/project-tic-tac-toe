@@ -49,6 +49,7 @@ const gameController = (() => {
     function makeATurn(index) {
         gameBoard.placeMarker(index, currentPlayer.marker);
         switchPlayer();
+        displayController.render();
     };
 
     function switchPlayer() {
@@ -80,4 +81,25 @@ const gameController = (() => {
 
     return { makeATurn, switchPlayer, checkWin };
 
+})();
+
+const displayController = (() => {
+
+    function render() {
+        
+        const board = gameBoard.getBoard();
+
+
+        board.forEach((cell, index) => {
+            document.querySelector(`#cell-${index}`).textContent = cell;
+        }); 
+
+
+
+    };
+
+    return { render };
+
+
+    
 })();
