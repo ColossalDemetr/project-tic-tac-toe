@@ -44,17 +44,51 @@ const gameController = (() => {
         createPlayer("Player2", "O")
     ];
 
+    // Reset button
+    const resetButton = document.querySelector("#restart");
+    function restartGame() {
+        gameBoard.reset();
+        gameOver = false;
+        currentPlayer = players[0];
+        statusBar.textContent = "";
+        displayController.render();
+    }
+
+    resetButton.addEventListener("click", () => {
+        restartGame();
+    });
+
     let currentPlayer = players[0];
 
+    const statusBar = document.querySelector("#status");
+
     function makeATurn(index) {
+
+        if (gameOver) return;
+
+        if (gameBoard.getBoard()[index] !== "") return;
+
+        const winner = currentPlayer;
+
         gameBoard.placeMarker(index, currentPlayer.marker);
+
         switchPlayer();
+
         displayController.render();
+
+        if (checkWin()) {
+            statusBar.textContent = `${winner.name} is our winner! Congrats🍾👏🏻`;
+            gameOver = true;
+        };
+
     };
 
     function switchPlayer() {
         currentPlayer = currentPlayer === players[0] ? players[1] : players[0];
     };
+
+
+    let gameOver = false;
 
     function checkWin() {
 
