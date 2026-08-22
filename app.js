@@ -60,8 +60,11 @@ const gameController = (() => {
 
     let currentPlayer = players[0];
 
+    // Get status bar
     const statusBar = document.querySelector("#status");
 
+
+    // Make a turn function
     function makeATurn(index) {
 
         if (gameOver) return;
@@ -79,17 +82,40 @@ const gameController = (() => {
         if (checkWin()) {
             statusBar.textContent = `${winner.name} is our winner! Congrats🍾👏🏻`;
             gameOver = true;
+            return;
         };
 
+        if (checkDraw()) {
+            statusBar.textContent = `It's a draw, damn it!`;
+            gameOver = true; 
+        };
+
+        
     };
 
+
+    // Switch the player function
     function switchPlayer() {
         currentPlayer = currentPlayer === players[0] ? players[1] : players[0];
     };
 
 
+
+    // Game checking
+    
     let gameOver = false;
 
+
+    // Check draw
+
+    function checkDraw() {
+        
+        const board = gameBoard.getBoard();
+       
+        return board.every(cell => cell !== "");
+    };
+
+    // Check win
     function checkWin() {
 
         const winConditions = [
@@ -113,7 +139,7 @@ const gameController = (() => {
     };
 
 
-    return { makeATurn, switchPlayer, checkWin };
+    return { makeATurn, switchPlayer, checkWin, checkDraw };
 
 })();
 
